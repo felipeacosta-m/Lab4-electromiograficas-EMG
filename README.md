@@ -18,3 +18,17 @@ Hanning suaviza más los bordes, es decir, menos “ruido” en el espectro, per
 donde interesa observar los cambios generales en la frecuencia. Hamming en cambio, suaviza menos, mantiene mejor la amplitud de las componentes, pero deja algo más de fuga. 
 Útil cuando se necesita medir amplitudes exactas o comparar potencias entre frecuencias.
 
+# Transformada de Fourier
+
+La Transformada de Fourier (TF) es una herramienta matemática fundamental en el procesamiento de señales que permite analizar cómo se distribuye la energía o potencia de una señal en función de la frecuencia. En otras palabras, transforma una señal del dominio del tiempo —donde se observa cómo varía la amplitud con el tiempo— al dominio de la frecuencia, donde se identifican las componentes sinusoidales que la componen.
+Cuando se aplica a una señal electromiográfica (EMG), la Transformada de Fourier permite obtener su espectro de frecuencias, mostrando qué componentes frecuenciales predominan durante la actividad muscular. Dado que la señal EMG es una mezcla de potenciales de acción generados por múltiples fibras musculares, su espectro refleja la complejidad y la intensidad de la contracción muscular.
+
+# Aplicación en el análisis EMG
+
+En el estudio de la fatiga muscular, la Transformada de Fourier se aplica a segmentos o ventanas de la señal EMG para observar cómo cambia su contenido espectral con el tiempo.
+Durante la contracción sostenida de un músculo:
+
+Las frecuencias altas tienden a disminuir a medida que el músculo se fatiga.
+La frecuencia mediana del espectro se desplaza hacia valores más bajos.
+Este comportamiento es un indicador confiable de fatiga muscular, ya que refleja la disminución en la velocidad de conducción de las fibras musculares.
+
