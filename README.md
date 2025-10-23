@@ -108,3 +108,32 @@ print(f"Coeficiente de variación ...: {coef_var:.2f} %")
 print(f"Curtosis ...................: {curtosis_val:.6f}")
 print("===========================================")
 ```
+Después de realizar el análisis espectral por ventanas sobre la señal EMG filtrada, se aplicó una prueba de hipótesis t pareada de dos colas utilizando la función ttest_rel() de la librería SciPy. Esta prueba se implementó para comparar las frecuencias medianas obtenidas en las ventanas iniciales y finales de la señal, con el fin de determinar si existe una disminución significativa asociada a la aparición de fatiga muscular.
+Cada segmento temporal de 2 s (con un solapamiento del 50 %) fue procesado mediante el método de Welch para estimar la densidad espectral de potencia (PSD), y a partir de ella se extrajo la frecuencia mediana. Posteriormente, las frecuencias de la primera mitad de las ventanas se agruparon en grupo1 y las de la segunda mitad en grupo2.
+La prueba t compara ambos conjuntos bajo la hipótesis nula de que sus medias son iguales. Se adoptó un nivel de significancia de α = 0.05 para evaluar si el cambio en la frecuencia mediana era estadísticamente relevante. Si el valor p obtenido es menor que α, se rechaza la hipótesis nula, concluyendo que existe una reducción significativa de la frecuencia mediana, lo que constituye evidencia de fatiga muscular. En caso contrario, no se detecta una diferencia estadísticamente significativa, aunque puede observarse una tendencia descendente en la frecuencia mediana a lo largo de la contracción.
+
+```cpp
+# === Prueba estadística ===
+n_mitad = n_ventanas // 2
+grupo1 = frecuencias_medianas[:n_mitad]
+grupo2 = frecuencias_medianas[n_mitad:]
+t_stat, p_val = ttest_rel(grupo1, grupo2)
+
+print(f"\nFrecuencia mediana inicial: {np.mean(grupo1):.2f} Hz")
+print(f"Frecuencia mediana final: {np.mean(grupo2):.2f} Hz")
+print(f"p-valor: {p_val:.4f}")
+
+if p_val < 0.05:
+    print("✅ Cambio significativo en la frecuencia mediana → evidencia de fatiga muscular.")
+else:
+    print("⚠️ No hay cambio estadísticamente significativo.")
+```
+
+Dado que el estadístico de prueba no está en la región crítica, no hay suficiente evidencia para rechazar la hipótesis nula. Es decir, no podemos concluir que se haya alcanzado la fatiga con el nivel de significancia del 1%.
+
+![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/a4841e101c48a3cad029ff68cc9ecf927fabdc6f/Prueba%20fatiga.png)
+
+# Conclusiones
+
+La adquisición de datos se pudo llevar a cabo de manera efectiva con una frecuencia de muestreo conveniente para el tiempo de fatiga muscular del individuo, dando acceso a una correcta captación de la señal EMG. El debido procesamiento de dicha señal permite evidenciar 26 picos significativos o de intereses necesarios para ser analizados, por medio de la aplicación de la FFT para poder realizar la extracción de características frecuenciales.
+Por medio de la implementación de la transformada de Fourier se pudo observar detalladamente la estructura frecuencial de los impulsos adquiridos, de esta manera completar el análisis estadístico con el cálculo de la media y desviación estándar de las ventanas creadas, el análisis de la señal electromiográfica nos permitió observar en detalle la actividad eléctrica del músculo del antebrazo y detectar los momentos clave de contracción. Sin embargo, los resultados obtenidos sugieren que, dentro del tiempo evaluado, no hubo una diferencia lo suficientemente significativa como para concluir que se alcanzó la fatiga muscular.
