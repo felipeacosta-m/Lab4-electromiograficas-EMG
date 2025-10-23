@@ -57,3 +57,54 @@ Posteriormente se le aplico tanto un filtro pasa-bajas y un pasa-altas para obte
 ![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/608ab3b3ab8cb94d916754076b1dfacb209c5ec4/Filtro%20pasa-bajas.png)
 ![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/608ab3b3ab8cb94d916754076b1dfacb209c5ec4/Filtro%20pasa-altas.png)
 
+En la señal se detectan los picos de la señal, los cuales fueron 26 impulsos significativos, por esta razón se producen 26 ventanas alrededor de los picos que se detectan. El siguiente paso fue realizar los cálculos de la FFT para cada ventana y se almacenaron los espectros obtenidos. Además, se hicieron los debidos cálculos estadísticos por medio del siguiente código:
+
+```cpp
+# ======================================================================
+# === SECCIÓN ESTADÍSTICOS ADICIONALES ===
+# ======================================================================
+print("   ESTADÍSTICOS DE LA SEÑAL EMG CRUDA")
+print("===========================================")
+
+# --- a. Media ---
+media = np.mean(data)
+
+# --- b. Desviación estándar ---
+desviacion_std = np.std(data)
+
+# --- c. Coeficiente de variación ---
+coef_var = (desviacion_std / abs(media) * 100) if media != 0 else np.nan
+
+# --- d. Histograma ---
+plt.figure(figsize=(10, 5))
+plt.hist(data, bins=50, color='skyblue', edgecolor='black', density=True)
+plt.title("Histograma de la señal EMG cruda")
+plt.xlabel("Amplitud (V)")
+plt.ylabel("Densidad de probabilidad")
+plt.grid(True)
+plt.show()
+
+# --- e. Función de probabilidad (PDF estimada) ---
+counts, bin_edges = np.histogram(data, bins=50, density=True)
+pdf = counts / np.sum(counts)
+centros = (bin_edges[:-1] + bin_edges[1:]) / 2
+
+plt.figure(figsize=(10, 5))
+plt.plot(centros, pdf, color='darkred', linewidth=2)
+plt.title("Función de Probabilidad (PDF) estimada - Señal cruda")
+plt.xlabel("Amplitud (V)")
+plt.ylabel("Probabilidad")
+plt.grid(True)
+plt.show()
+
+# --- f. Curtosis ---
+from scipy.stats import kurtosis
+curtosis_val = kurtosis(data)
+
+# === Mostrar resultados numéricos formateados ===
+print(f"Media ......................: {media:.6f}")
+print(f"Desviación estándar ........: {desviacion_std:.6f}")
+print(f"Coeficiente de variación ...: {coef_var:.2f} %")
+print(f"Curtosis ...................: {curtosis_val:.6f}")
+print("===========================================")
+```
