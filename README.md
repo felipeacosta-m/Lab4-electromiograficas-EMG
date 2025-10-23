@@ -51,5 +51,9 @@ void loop() {
 # Procesamiento de la señal
 
 Para el procesamiento de la señal, en primer lugar se cargaron los datos, leyendo la señal por medio de emg_data.txt , en donde se vio la siquiente señal EMG.
-![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/218374babc0bd294ab3fe1c2a55f3b79e4ec4d1a/Se%C3%B1al%20original.png))
+![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/218374babc0bd294ab3fe1c2a55f3b79e4ec4d1a/Se%C3%B1al%20original.png)
+
+Posteriormente se le aplico tanto un filtro pasa-bajas y un pasa-altas para obtener una señal más limpia:
+![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/608ab3b3ab8cb94d916754076b1dfacb209c5ec4/Filtro%20pasa-bajas.png)
+![image](https://github.com/felipeacosta-m/Lab4-electromiograficas-EMG/blob/608ab3b3ab8cb94d916754076b1dfacb209c5ec4/Filtro%20pasa-altas.png)
 
