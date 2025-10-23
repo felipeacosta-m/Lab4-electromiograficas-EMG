@@ -32,3 +32,6 @@ Las frecuencias altas tienden a disminuir a medida que el músculo se fatiga.
 La frecuencia mediana del espectro se desplaza hacia valores más bajos.
 Este comportamiento es un indicador confiable de fatiga muscular, ya que refleja la disminución en la velocidad de conducción de las fibras musculares.
 
+# Adquisición de datos:
+
+El proceso que se llevo a cabo para adquirir las señales EMG del músculo del antebrazo fue en primer lugar poner los electrodos en la superficie de los músculos a evaluar. El sistema de adquisición que se utiliza fue por medio del ESP32, el cual permite registrar la actividad eléctrica arrojada por el músculo durante la contracción continua hasta la fatiga. Los electrodos fueron conectados al módulo y al ESP32, por medio de C++ se adquirió la señal con una frecuencia de muestreo de 1000 Hz por 30 segundos, se adquirieron 120,000 muestras en total, para capturar adecuadamente la señal sin perder datos importantes de la misma, monitoreando el músculo en tiempo real para corroborar que los datos adquiridos eran correctos.
